@@ -1,0 +1,11 @@
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\bin\Debug\netcoreapp2.0\assign2.deps.json
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\bin\Debug\netcoreapp2.0\assign2.runtimeconfig.json
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\bin\Debug\netcoreapp2.0\assign2.runtimeconfig.dev.json
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\bin\Debug\netcoreapp2.0\assign2.dll
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\bin\Debug\netcoreapp2.0\assign2.pdb
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\obj\Debug\netcoreapp2.0\assign2.csprojResolveAssemblyReference.cache
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\obj\Debug\netcoreapp2.0\assign2.csproj.CoreCompileInputs.cache
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\obj\Debug\netcoreapp2.0\assign2.AssemblyInfoInputs.cache
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\obj\Debug\netcoreapp2.0\assign2.AssemblyInfo.cs
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\obj\Debug\netcoreapp2.0\assign2.dll
+C:\Users\Bastian\projects\university\DBTheory\assigment2-csharp\assign2\obj\Debug\netcoreapp2.0\assign2.pdb
