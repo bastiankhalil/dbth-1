@@ -11,8 +11,8 @@ namespace assign2
         {
 
             // define vars
-            string targetTable = "assignment_2.simple";
-            string targetFile = "files/test-file";
+            string targetTable = "assignment_2.comments_simple";
+            string targetFile = "files/large-file-RC_2011-07";
 
             Console.WriteLine("App Start...");
 
@@ -24,16 +24,21 @@ namespace assign2
             connection.Open();
 
             DateTime startTime = DateTime.Now;
+            Signal(1);
 
             Console.WriteLine(startTime.ToString());
 
             // empty table
+            /*
             MySqlCommand emptyTableCommand = new MySqlCommand("TRUNCATE " + targetTable, connection);
             using (MySqlDataReader reader = emptyTableCommand.ExecuteReader())
             {
                 Console.WriteLine("Empty table...");
             }
+            */
 
+            
+            long[] users = new long[10] { 8007026895, 8207026895, 8307026895, 8507026895, 8810702689, 9107026895, 9207026895, 9307026895, 9407026895, 9507026895 };
 
             const Int32 BufferSize = 128;
             int lineNumber = 0;
@@ -43,7 +48,7 @@ namespace assign2
                 String line;
                 while ((line = streamReader.ReadLine()) != null)
                 {
-                    string[] queryStrArr = new string[10];
+                    string[] queryStrArr = new string[9];
                     string stipedLine = line.Replace("}", "").Replace("{", "");
                     string[] lineResult = stipedLine.Split(',');
                     foreach (string word in lineResult)
@@ -78,14 +83,11 @@ namespace assign2
                                 case "subreddit_id":
                                     queryStrArr[6] = wordData[1].Replace("\"", "");
                                     break;
-                                case "subreddit":
+                                case "score":
                                     queryStrArr[7] = wordData[1].Replace("\"", "");
                                     break;
-                                case "score":
-                                    queryStrArr[8] = wordData[1].Replace("\"", "");
-                                    break;
                                 case "created_utc":
-                                    queryStrArr[9] = wordData[1].Replace("\"", "");
+                                    queryStrArr[8] = wordData[1].Replace("\"", "");
                                     break;
                                 default:
                                     break;
@@ -95,10 +97,12 @@ namespace assign2
 
                     lineNumber++;
 
-
-                    using (MySqlCommand command = new MySqlCommand("INSERT INTO "+ targetTable  + " (id, parent_id, link_id, name, author, body, subreddit_id, subreddit, score, created_utc) " +
-                "VALUES (@id, @parent_id, @link_id, @name, @author, @body, @subreddit_id, @subreddit, @score, @created_utc );", connection))
+                    /*
+                    using (MySqlCommand command = new MySqlCommand("INSERT INTO "+ targetTable  + " (id, parent_id, link_id, name, author, body, subreddit_id, score, created_utc, user_id) " +
+                "VALUES (@id, @parent_id, @link_id, @name, @author, @body, @subreddit_id, @score, @created_utc, @user_id );", connection))
                     {
+                        Random random = new Random();
+                        int userRandIndex  = random.Next(0, users.Length);
 
                         command.Parameters.AddWithValue("@id", queryStrArr[0]);
                         command.Parameters.AddWithValue("@parent_id", queryStrArr[1]);
@@ -107,11 +111,25 @@ namespace assign2
                         command.Parameters.AddWithValue("@author", queryStrArr[4]);
                         command.Parameters.AddWithValue("@body", queryStrArr[5]);
                         command.Parameters.AddWithValue("@subreddit_id", queryStrArr[6]);
-                        command.Parameters.AddWithValue("@subreddit", queryStrArr[7]);
-                        command.Parameters.AddWithValue("@score", queryStrArr[8]);
-                        command.Parameters.AddWithValue("@created_utc", queryStrArr[9]);
+                        command.Parameters.AddWithValue("@score", queryStrArr[7]);
+                        command.Parameters.AddWithValue("@created_utc", queryStrArr[8]);
+                        command.Parameters.AddWithValue("@user_id", users[userRandIndex]);
                         command.ExecuteNonQuery();
                     }
+                    */
+
+                    // insert reddits
+                    try
+                    {
+                        using (MySqlCommand command = new MySqlCommand("INSERT INTO assignment_2.subreddits (id, subreddit) VALUES (@id, @subreddit );", connection))
+                        {
+                            command.Parameters.AddWithValue("@id", queryStrArr[6]);
+                            command.Parameters.AddWithValue("@subreddit", queryStrArr[7]);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception)
+                    {}
 
                 }
             }
@@ -123,12 +141,25 @@ namespace assign2
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("Imported File:" + targetFile );
             Console.WriteLine("Target Table:" + targetTable);
-            Console.WriteLine("Duration" + duration.ToString() );
-            Console.WriteLine("Minutes:" + duration.TotalMinutes.ToString() + " Seconds:" + duration.TotalSeconds.ToString() + " Milliseconds:" + duration.TotalMilliseconds.ToString());
+            Console.WriteLine("Duration " + duration.ToString() );
 
             connection.Close();
             Console.WriteLine("Connection Closed");
+            Signal(20);
             Console.ReadKey();
         }
+
+
+        // beep
+        public static void Signal(int count)
+        {
+
+            for (int i = 1; i <= count; i++)
+            {
+                Console.Beep();
+            }
+        }
+    
     }
+       
 }
